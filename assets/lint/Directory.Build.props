@@ -3,8 +3,8 @@
      Fixa os pisos de linguagem sem repetir em cada projeto. -->
 <Project>
   <PropertyGroup>
-    <!-- Alvo LTS/atual — ajuste em global.json também. -->
-    <TargetFramework>net9.0</TargetFramework>
+    <!-- Alvo = LTS corrente (.NET 10, EOS 2028-11-14; .NET 9 e 8 terminam em 2026-11-10 — references/stack-versoes.md). Ajuste em global.json também. -->
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>latest</LangVersion>
 
     <!-- PISO §4: nullable reference types habilitado em todo lugar. -->

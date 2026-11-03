@@ -89,6 +89,13 @@ scan '@ts-ignore|: any\b|interface\{\}|#nullable\s+disable' 'tipo silenciado (an
 scan '\.Result\b|\.Wait\(\)|\.GetAwaiter\(\)\.GetResult\(\)|async\s+void\b' 'sync-over-async / async void — deadlock e erro perdido (§async/§37)'
 scan '\.(skip|only)\(|t\.Skip\(|xit\(|@Ignore|\[Fact\(\s*Skip\s*=|\[Ignore\]|\[Theory\(\s*Skip\s*=' 'teste pulado/silenciado (§37)'
 
+# 2.2) Piso de toolchain — TargetFramework fora do LTS corrente (.NET 8/9 terminam em 2026-11-10; stack-versoes.md)
+mapfile -t PROJ < <(git diff --name-only "$BASE"...HEAD 2>/dev/null | grep -E '\.(csproj|props|targets)$' || true)
+for f in "${PROJ[@]}"; do
+  [[ -f "$f" ]] || continue
+  hit=$(grep -nE '<TargetFrameworks?>[^<]*net(5|6|7|8|9)\.0' "$f" 2>/dev/null) && while IFS= read -r l; do block "$f:${l%%:*} — TargetFramework fora do LTS corrente (.NET 10); .NET 8/9 sem suporte após 2026-11-10 (stack-versoes.md)"; done <<< "$hit"
+done
+
 # 3) §39 — índice atualizado quando muda funcionalidade
 if (( ${#FILES[@]} > 0 )); then
   idx=$(git diff --name-only "$BASE"...HEAD 2>/dev/null | grep -E 'INDEX_(GLOBAL|FUNCTIONS)\.md' || true)

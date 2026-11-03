@@ -9,6 +9,8 @@
 > aceita sem ADR — trava o merge/release (piso de supply chain) até a migração ou um ADR de exceção
 > com prazo curto. *(O 9 é STS, não LTS.)*
 >
+> **.NET 11** está em RC (go-live; GA previsto nov/2026, STS por cadência par=LTS/ímpar=STS — a página de política não afirma o tipo). Ele **não substitui** o 10 como alvo: LTS corrente segue sendo o 10 (fonte: dotnet.microsoft.com/platform/support/policy, 2026-11-03).
+>
 > Parte da skill **schematize-csharp**. Define o ferramental, as versões-alvo e o
 > piso de toolchain do recorte C# (.NET) do rol sancionado. A escolha da linguagem
 > (fit + ADR) está em `references/arquitetura.md` (§3) e no canônico agnóstico

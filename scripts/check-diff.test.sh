@@ -58,6 +58,10 @@ plant "FromSqlRaw interpolado" svc/q2.cs 'ctx.Users.FromSqlRaw($"select * from u
 plant "AllowAnyOrigin" svc/c2.cs 'p.AllowAnyOrigin();' 1 "CORS"
 plant "#nullable disable" svc/n2.cs '#nullable disable' 1 "tipo silenciado"
 
+echo "── VERMELHO: TargetFramework fora do LTS"
+plant "net9.0 no csproj bloqueia" svc/Svc.csproj '<Project><PropertyGroup><TargetFramework>net9.0</TargetFramework></PropertyGroup></Project>' 1 "TargetFramework"
+plant "net10.0 no csproj passa" svc/Svc.csproj '<Project><PropertyGroup><TargetFramework>net10.0</TargetFramework></PropertyGroup></Project>' 0
+
 echo "── VERMELHO: tamanho de arquivo"
 new_repo; mkdir -p svc
 { for i in $(seq 1 800); do echo "var v$i = $i"; done; } > svc/big.cs; commit_feat
