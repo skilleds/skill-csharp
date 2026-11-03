@@ -17,6 +17,11 @@
 
 - **Superfície mínima** (idempotentes, com `--help` e saída machine-readable): `bootstrap` (cria `/<app>/` e clona os repos) · `install`/`up` · `redeploy` (destrutivo, do seed §2) · `update` · `config` (do `/<app>/.env`) · `migrate` (reversível) · `health`/`doctor` · `rollback` · `logs`/`troubleshoot` · `reset` (destrói dados — gated, dev/hml) · `test` (ver a `schematize-qa` (test kit, `references/execucao.md` secao 2)).
 
+## 8. Pisos 22–24 — recorte csharp
+
+- **Canal único = git (22/23); o ops é o gate da IA (24).** Detalhe na base (`schematize-engineering` → `references/ops.md` §1, §4, §8): sem `scp`/`rsync`/`tar | ssh`/`docker save|load`; a IA nunca muda a VPS nem escreve SQL — só operação nomeada do ops; antes de pronto, `HEAD == origin` (`scripts/check-deploy-git.sh`).
+- **C#/.NET:** `dotnet publish` na estação + `scp`/`rsync` do resultado, `docker save|load` da imagem e `dotnet ef database update` contra a VPS são **VETADOS**. O ops, na VPS, busca o SHA/tag do git e faz `dotnet restore --locked-mode` + `publish` num build limpo; a migration é **bundle/operação nomeada** (`ops migrate`), nunca `dotnet ef`/SQL da IA.
+
 ## 7. Integração com o resto da casa
 
 Comando: **`/<slug>-ops`** (ex.: `/eng-ops`, `/cs-ops`) — audita/scaffolda o ops, verifica o fluxo de ambientes, o layout `/<app>/` + seed, o isolamento por usuário, a paralelização (`nproc`) e a independência.
