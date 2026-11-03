@@ -2,6 +2,15 @@
 
 Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
+## [Não lançado]
+### Alterado
+- Template de CI sem `pull_request`/`push` em branch: `workflow_dispatch` + `push: tags [hml-*, v*]`, `concurrency` com `cancel-in-progress` e passo `check-ci-triggers.sh` (piso 27); DoD/exemplos que diziam "CI verde no PR" agora dizem gate local + CI remoto só antes do hml.
+- Bloco "Herda os pisos 22–29" em `SKILL.md` e `assets/CLAUDE.md`.
+- `assets/lint/Directory.Build.props`: `net9.0` -> `net10.0` (LTS; .NET 8/9 terminam em 2026-11-10 — fonte dotnet.microsoft.com/platform/support/policy, 2026-11-03).
+- `check-diff.sh` bloqueia `TargetFramework` net5–net9 em `.csproj/.props/.targets` (teste vermelho plantado).
+- `stack-versoes.md`: nota sobre .NET 11 (RC, não substitui o 10).
+- `cs-ops`: chama operação nomeada, IA vetada de ssh mutável/console/SQL (piso 24), deploy só do git (23) e gate de saída `check-deploy-git.sh` (22); `ops.md` §8 recorte C#.
+
 ## [0.6.1] — 2026-10-20
 ### Alterado
 - Bloco herdado `engineering/iam-desenho:invariantes` sincronizado: passkey padrão na fase 0 e matriz de acesso por rota.
