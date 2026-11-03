@@ -11,6 +11,9 @@ com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 - `stack-versoes.md`: nota sobre .NET 11 (RC, não substitui o 10).
 - `cs-ops`: chama operação nomeada, IA vetada de ssh mutável/console/SQL (piso 24), deploy só do git (23) e gate de saída `check-deploy-git.sh` (22); `ops.md` §8 recorte C#.
 
+### Corrigido
+- `scripts/simulated/run.py`: passa no ruff da casa sem afrouxar nada — saída via `emit()` (sem `print`), esquema da URL validado (só http/https, erro claro) com teste em `run.test.sh`, `noqa` inútil removido, `datetime.UTC`, `ruff format`; comportamento preservado.
+
 ## [0.6.1] — 2026-10-20
 ### Alterado
 - Bloco herdado `engineering/iam-desenho:invariantes` sincronizado: passkey padrão na fase 0 e matriz de acesso por rota.
