@@ -20,7 +20,7 @@
   (nome quase igual ao popular — vale para NuGet também); licença na allowlist
   (MIT/Apache-2.0/BSD/MPL-2.0/ISC ok; GPL/AGPL/SSPL/proprietária só com ADR).
 
-- Atualização automatizada (Dependabot/Renovate — Dependabot cobre NuGet) com CI verde como gate.
+- Atualização automatizada (Dependabot/Renovate — Dependabot cobre NuGet) com o gate local verde (e o CI remoto antes do hml) como trava.
 
 - `cargo vendor`/proxy de módulos (feed NuGet interno) para builds críticos não dependerem de upstream no ar.
 

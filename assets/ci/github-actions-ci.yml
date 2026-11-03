@@ -5,8 +5,15 @@
 # Restore travado por packages.lock.json (§ cadeia).
 name: ci
 on:
-  pull_request:
-  push: { branches: [main] }
+  workflow_dispatch:
+  push:
+    tags: ["hml-*", "v*"]
+
+# Piso 27: CI remoto NAO roda por commit nem por PR. O gate por commit e LOCAL (scripts/pre-commit);
+# este workflow roda so antes de promover a hml (tag hml-*), em release (tag v*) ou sob pedido (dispatch).
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   DOTNET_VERSION: "10.0.x"       # LTS corrente (verificado 2026-08-21) — fixe a linha em global.json
@@ -20,7 +27,9 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with: { fetch-depth: 0 }
       - name: Gate de padrões (DoD/§37) no diff
-        run: bash .claude/skills/schematize-csharp/scripts/check-diff.sh "origin/${{ github.base_ref || 'main' }}"
+        run: bash .claude/skills/schematize-csharp/scripts/check-diff.sh "origin/main"
+      - name: Gatilhos de CI (piso 27 — sem PR/branch)
+        run: bash .claude/skills/schematize-engineering/scripts/check-ci-triggers.sh .
       - name: Índice de microfunções atualizado (§39)
         env:
           # Sem estes dois o gate NAO roda — e nao rodar REPROVA. Gate desarmado em silencio
